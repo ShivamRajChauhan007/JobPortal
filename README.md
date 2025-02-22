@@ -45,7 +45,7 @@ A RESTful API for job seekers and employers to **post, search, apply**, and **bo
 ### **📌 Steps**
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-repo/job-listing-portal.git
+   git clone https://github.com/ShivamRajChauhan007/JobPortal.git
    cd job-listing-portal
    ```
 
