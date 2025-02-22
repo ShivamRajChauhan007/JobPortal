@@ -1,7 +1,12 @@
 package com.Application.JobListingPortal.Entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -9,6 +14,7 @@ import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -42,10 +48,8 @@ public class JobEntity {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @ElementCollection // Stores list of skills in a separate table
-    @CollectionTable(name = "job_skills", joinColumns = @JoinColumn(name = "job_id"))
-    @Column(name = "skill", nullable = false)
-    private List<String> skills;
+    @Column(nullable = false, length = 1000)
+    private String skills;
 
     @Column(nullable = false,length = 255)
     private String location;
@@ -64,4 +68,11 @@ public class JobEntity {
         FULL_TIME, INTERN, CONTRACT
     }
 
+    public List<String> getSkills() {
+        return skills == null || skills.isEmpty() ? new ArrayList<>() : Arrays.asList(skills.split(","));
+    }
+
+    public void setSkills(List<String> skills) {
+        this.skills = String.join(",", skills);
+    }
 }

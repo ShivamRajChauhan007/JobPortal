@@ -33,8 +33,7 @@ public class AppConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable()) // Disable CSRF protection
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/jobListingpPortal/*","jobListingpPortal/list").permitAll()  // Public APIs
-                //.requestMatchers("/api/jobs/post", "/api/jobs/update/**", "/api/jobs/delete/**").hasAuthority("EMPLOYER") // Employer-only APIs
+                .requestMatchers("/jobListingPortal/register","/jobListingPortal/login","jobListingPortal/list").permitAll()  // Public APIs
                 .anyRequest().authenticated()  // All other requests require authentication
             )
             .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))  // Stateless JWT authentication

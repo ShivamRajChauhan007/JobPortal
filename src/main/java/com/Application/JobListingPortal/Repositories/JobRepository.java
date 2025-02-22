@@ -19,12 +19,13 @@ public interface JobRepository extends JpaRepository<JobEntity, Long>{
     List<JobEntity> findByEmployer(UserEntity employer);
 
     @Query("SELECT j FROM JobEntity j WHERE " +
-           "j.position LIKE %:position% AND " +
-           "j.location LIKE %:location% AND " +
-           "j.jobType = :jobType")
-    Page<JobEntity> findJobs(@Param("position") String position,
-                             @Param("location") String location,
-                             @Param("jobType") JobEntity.JobType jobType,
-                             Pageable pageable);
+       "(:position IS NULL OR j.position LIKE %:position%) AND " +
+       "(:location IS NULL OR j.location LIKE %:location%) AND " +
+       "(:jobType IS NULL OR j.jobType = :jobType)")
+Page<JobEntity> findJobs(@Param("position") String position,
+                     @Param("location") String location,
+                     @Param("jobType") JobEntity.JobType jobType,
+                     Pageable pageable);
+
 
 } 

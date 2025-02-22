@@ -1,5 +1,6 @@
 package com.Application.JobListingPortal.Services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,6 +75,7 @@ public class BookmarkService {
         BookmarkEntity bookmark = new BookmarkEntity();
         bookmark.setUser(user);
         bookmark.setJob(job);
+        bookmark.setSavedAt(LocalDateTime.now());
         bookmarkRepository.save(bookmark);
 
         log.info("Job ID {} bookmarked successfully by user {}", jobId, userEmail);

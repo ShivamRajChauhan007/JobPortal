@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class JobDto {
+    private Long id;
     private String position;
     private String description;
     private List<String> skills;

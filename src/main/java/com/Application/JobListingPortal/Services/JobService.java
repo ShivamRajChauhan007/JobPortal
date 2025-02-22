@@ -1,9 +1,8 @@
 package com.Application.JobListingPortal.Services;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -17,7 +16,6 @@ import com.Application.JobListingPortal.JWTAuth.JwtUtil;
 import com.Application.JobListingPortal.Entities.JobEntity.JobType;
 import com.Application.JobListingPortal.Exceptions.CustomExceptions.InvalidJobTypeException;
 import com.Application.JobListingPortal.Exceptions.CustomExceptions.JobNotFoundException;
-import com.Application.JobListingPortal.Exceptions.CustomExceptions.UnauthorizedAccessException;
 import com.Application.JobListingPortal.Exceptions.CustomExceptions.UnauthorizedActionException;
 import com.Application.JobListingPortal.Exceptions.CustomExceptions.UserNotFoundException;
 import com.Application.JobListingPortal.Repositories.JobRepository;
@@ -67,6 +65,7 @@ public class JobService {
             throw new InvalidJobTypeException("Invalid job type: " + jobDto.getJobType());
         }
         // Save the job
+        job.setSkills(job.getSkills());
         JobEntity savedJob = jobRepository.save(job);
         log.info("Job created successfully with ID: {}", savedJob.getId());
         return savedJob.getId(); // Return the created job's ID
@@ -113,6 +112,7 @@ public class JobService {
                 throw new InvalidJobTypeException("Invalid job type: " + jobRequest.getJobType());
             }
         }
+        job.setSkills(job.getSkills());
     
         // Save updated job
         JobEntity updatedJob = jobRepository.save(job);

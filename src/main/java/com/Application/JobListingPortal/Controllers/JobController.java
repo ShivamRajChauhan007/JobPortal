@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
 @RestController
-@RequestMapping("jobListingpPortal")
+@RequestMapping("jobListingPortal")
 public class JobController {
 
     final JobService jobService;

@@ -24,6 +24,9 @@ public class JwtUtil {
 
     public boolean validateToken(String token) {
         try {
+            if (token.startsWith("Bearer ")) {
+                token = token.substring(7);  // Remove "Bearer " (including space)
+            }
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (Exception e) {
@@ -32,10 +35,16 @@ public class JwtUtil {
     }
 
     public String extractEmail(String token) {
-        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody().getSubject();
+        if (token.startsWith("Bearer ")) {
+            token = token.substring(7);  // Remove "Bearer " (including space)
+        }
+        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token.trim()).getBody().getSubject();
     }
 
     public String extractRole(String token) {
+        if (token.startsWith("Bearer ")) {
+            token = token.substring(7);  // Remove "Bearer " (including space)
+        }
         return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody().get("role", String.class);
     }
 }
